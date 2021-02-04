@@ -8,46 +8,92 @@ public class AddressBook {
 
     private static List<Entry> entryList = new ArrayList<>();
 
-    //methods : ways to manipulate the array List
-
-
-    //Keeps track of how many entries are in the list
 
     //Adds an entry to the list
     public static void addEntry(Entry entry) {
-        int length = entryList.size();
-        entryList.add(entry);
-        System.out.println("Print the elements in an array: " +entryList.get(length) );
-        System.out.println("Entry List size now is: "  +entryList.size());
+
+
+             int length = entryList.size();
+            //entryList.add(entry);//
+            // for loop, essentially
+            // this returns true if my email is not unique
+            var isNotUnique = entryList.stream()
+                    .anyMatch(e -> e.getEmailAddress().equals(entry.getEmailAddress()));
+
+            if (isNotUnique) {
+                System.out.print("Email ID should be unique,Let's try again!\n");
+            }  else {
+                entryList.add(entry);
+                System.out.println(entry);
+                System.out.print("Entry added! Taking you to the Main Menu...\n");
+            }
     }
 
     //Delete an entry
+        public static void removeEntry(String emailID) {
 
-    public static void removeEntry(String emailID) {
-        for (int i = 0; i <= entryList.size(); i++) {
-            entryList.removeAll(Collections.singleton(emailID));
+            boolean ans;
+            if ( ans = entryList.removeIf(entry -> entry.getEmailAddress().equals(emailID))) {
+                System.out.println("The contact with " +emailID + " is going to be deleted");
+                System.out.println("Address Book Modified: \n" +entryList + "\n");
 
-            int length = entryList.size();
-            System.out.println("Print the elements in an array: " +entryList.get(length) );
+              }
+
+            else{
+                    ans = false;
+                    System.out.println("Please enter valid emailID");
+                }
+            }
+
+
+
+    //Search for an entry either using FirstName or LastName or PhoneNumber or emailAddress
+
+    public static Entry searchEntry(char queryType, String query) {
+        switch(queryType) {
+            case 'F' -> {
+                return entryList.stream()
+                        .filter(entry -> entry.getFirstName().contains(query))
+                        .findAny()
+                        .orElseThrow();
+            }
+            case 'L' -> {
+                return entryList.stream()
+                        .filter(entry -> entry.getLastName().contains(query))
+                        .findAny()
+                        .orElseThrow();
+            }
+            case 'P' -> {
+                return entryList.stream()
+                        .filter(entry -> entry.getPhoneNumber().contains(query))
+                        .findAny()
+                        .orElseThrow();
+            }
+            case 'E' -> {
+                return entryList.stream()
+                        .filter(entry -> entry.getEmailAddress().contains(query))
+                        .findAny()
+                        .orElseThrow();
+            }
+            default -> new Entry("", "", "", "");
         }
-        System.out.println("Entry List Length now is: "  +entryList.size());
+        return new Entry("", "", " ", "");
     }
 
-    public static Entry searchEntry(String email) {
-        return  entryList.stream()
-                .filter(entry -> entry.getEmailAddress().equals(email))
-                .findFirst()
-                .orElseThrow();
-    }
+         //Printing all the contacts in the address book
+        public static void printEntryList() {
+            if (entryList.isEmpty()) {
+                System.out.println("Address Book is empty");
+            } else {
+                System.out.println("Printing the contacts in AddressBook \n" + entryList + "\n");
+            }
+        }
 
-    public static void printEntryList(){
-                           System.out.println("Printing all the elements in the List:" +entryList);
-    }
 
-    public static void deleteList() {
+        //Deleting all the contacts from the address book
+        public static void deleteList() {
         entryList.clear();
-        System.out.println("Deleting all elements from the List:");
-
+        System.out.println("All contacts in the address book are cleared");
     }
 }
 

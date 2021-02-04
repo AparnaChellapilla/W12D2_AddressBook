@@ -1,5 +1,3 @@
-# W12D2_AddressBook
- Address Book
 # Java Address Book Project
 
 In this project, you will be creating an address book that can store information about people.
@@ -506,5 +504,4 @@ If you have extra time, try to implement the following features!
 - Make input parameter checks stricter (check for valid phone number format, valid email format)
 - Save address book to a file
 - Load address book from a file
-
 

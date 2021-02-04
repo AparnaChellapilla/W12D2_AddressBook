@@ -42,7 +42,7 @@ public class Entry  {
         this.emailAddress = emailAddress;
     }
 
-    public String getEmailAddress() {
+    public  String getEmailAddress() {
         return emailAddress;
     }
 
@@ -52,12 +52,12 @@ public class Entry  {
 
     @Override
     public String toString() {
-        return "Entry{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                '}';
+        return "\n************\n" + firstName
+                + "\n"
+                + lastName
+                + "\n"
+                + phoneNumber
+                + "\n" + emailAddress + "\n" + "************";
     }
 
 
